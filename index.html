@@ -441,6 +441,7 @@
     .bento {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
+      grid-auto-flow: dense;
       gap: 1rem;
     }
 
@@ -561,6 +562,9 @@
 
     .tile-hero .tile-title { font-size: 2.1rem; }
     .tile-hero .tile-desc { font-size: 1rem; max-width: 56ch; }
+
+    /* two co-primary tools, side by side at the top */
+    .tile-cohero { grid-column: span 3; grid-row: auto; min-height: 240px; }
 
     .span3 { grid-column: span 3; }
 
@@ -728,7 +732,7 @@
 
       <div class="bento">
 
-        <a class="tile tile-hero" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.5.html">
+        <a class="tile tile-hero tile-cohero" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.5.html">
           <span class="tile-idx">01</span>
           <span class="tile-cat">Primary Tool &middot; v2.5 &nbsp;</span>
           <span class="tile-title">Ransomware Ecosystem Map</span>
@@ -737,8 +741,17 @@
           <span class="tile-go">&rarr;</span>
         </a>
 
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/kpi/">
+        <a class="tile tile-hero tile-cohero" href="https://ransomwareedp.github.io/Mapping/krysha.html">
           <span class="tile-idx">02</span>
+          <span class="tile-cat">Interactive Simulator &middot; Beta</span>
+          <span class="tile-title">KRYSHA</span>
+          <span class="tile-desc">A playable ransomware-ecosystem disruption simulator. Spend action points on real pressure levers &mdash; financial, infrastructure, legal, underground, protection-layer &mdash; and the ecosystem adapts the way the framework says it does. &ldquo;The protection is the real target.&rdquo;</span>
+          <span class="tile-tags"><span>Adaptation Engine</span><span>WAIS</span><span>7 Scenarios</span><span>Analyst Layer</span></span>
+          <span class="tile-go">&rarr;</span>
+        </a>
+
+        <a class="tile" href="https://ransomwareedp.github.io/Mapping/kpi/">
+          <span class="tile-idx">03</span>
           <span class="tile-cat">Measurement Tool</span>
           <span class="tile-title">KPI Measurement Tracker</span>
           <span class="tile-desc">Longitudinal tracking of 9 disruption KPIs. Quarterly data from Q1 2024 onward with trend charts.</span>
@@ -747,7 +760,7 @@
         </a>
 
         <a class="tile" href="https://ransomwareedp.github.io/Mapping/ransomware-live-intel.html">
-          <span class="tile-idx">03</span>
+          <span class="tile-idx">04</span>
           <span class="tile-cat"><span class="live-dot"></span>Live Feed</span>
           <span class="tile-title">Live Intelligence Feed</span>
           <span class="tile-desc">Real-time victim posts and active group tracking via ransomware.live. Filterable by group, country, and sector. Refreshes every 5 minutes.</span>
@@ -756,7 +769,7 @@
         </a>
 
         <a class="tile" href="https://ransomwareedp.github.io/Mapping/groups">
-          <span class="tile-idx">04</span>
+          <span class="tile-idx">05</span>
           <span class="tile-cat">Threat Actor Library</span>
           <span class="tile-title">Ransomware Variant Profiles</span>
           <span class="tile-desc">Histories and structural profiles of individual variants: lineage, operational patterns, affiliate relationships, disruption timeline.</span>
@@ -765,16 +778,16 @@
         </a>
 
         <a class="tile" href="https://ransomwareedp.github.io/Mapping/exchanges">
-          <span class="tile-idx">05</span>
+          <span class="tile-idx">06</span>
           <span class="tile-cat">Financial Layer</span>
           <span class="tile-title">Cryptocurrency Exchange Profiles</span>
           <span class="tile-desc">Exchanges serving Russia/CIS ransomware networks: volumes, illicit exposure, operator attribution, sanctions history.</span>
-          <span class="tile-tags"><span>1 Profile</span></span>
+          <span class="tile-tags"><span>3 Profiles</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
 
         <a class="tile" href="https://ransomwareedp.github.io/Mapping/bphs">
-          <span class="tile-idx">06</span>
+          <span class="tile-idx">07</span>
           <span class="tile-cat">Infrastructure Layer</span>
           <span class="tile-title">Bulletproof Hosting Profiles</span>
           <span class="tile-desc">BPH providers serving the ecosystem: ASN infrastructure, operator attribution, sanctions exposure, disruption history.</span>
@@ -783,7 +796,7 @@
         </a>
 
         <a class="tile span3" href="https://ransomwareedp.github.io/Mapping/ransomware-edp-modules-v1.0.html">
-          <span class="tile-idx">07</span>
+          <span class="tile-idx">08</span>
           <span class="tile-cat">Intelligence Browser</span>
           <span class="tile-title">EDP Module Intelligence</span>
           <span class="tile-desc">Node-by-node intelligence browser for all 15 Ecosystem Dependency Playbook modules. Deep-dive analysis of individual ecosystem components, disruption vectors, and interdiction points.</span>
@@ -792,7 +805,7 @@
         </a>
 
         <a class="tile span3" href="https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html">
-          <span class="tile-idx">08</span>
+          <span class="tile-idx">09</span>
           <span class="tile-cat">Analysis Tool &middot; v0.1</span>
           <span class="tile-title">Role-Based Analysis Lenses</span>
           <span class="tile-desc">Tailored ecosystem views for specific analyst roles: law enforcement, intelligence community, financial disruption, threat intelligence, and leadership. Each lens surfaces the leverage points most relevant to that mission.</span>
@@ -801,20 +814,11 @@
         </a>
 
         <a class="tile" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-lineage-explorer.html">
-          <span class="tile-idx">09</span>
+          <span class="tile-idx">10</span>
           <span class="tile-cat">Analysis Tool &middot; v1.0</span>
           <span class="tile-title">Ransomware Lineage Explorer</span>
           <span class="tile-desc">Family tree of ransomware groups: rebrand chains, affiliate migrations, and code lineage across the ecosystem.</span>
           <span class="tile-tags"><span>Lineage</span><span>Rebrands</span></span>
-          <span class="tile-go">&rarr;</span>
-        </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-arc-diagram.html">
-          <span class="tile-idx">10</span>
-          <span class="tile-cat">Visualization &middot; v1.0</span>
-          <span class="tile-title">Ransomware Arc Diagram</span>
-          <span class="tile-desc">Arc visualization of relationships across groups, infrastructure, and financial nodes. A linear complement to the map.</span>
-          <span class="tile-tags"><span>Relationships</span><span>Cross-Node</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
 
@@ -824,15 +828,6 @@
           <span class="tile-title">Group Toolkit Profiles</span>
           <span class="tile-desc">Per-group tooling reference: encryptors, loaders, exfiltration utilities, and infrastructure preferences.</span>
           <span class="tile-tags"><span>TTPs</span><span>Tooling</span></span>
-          <span class="tile-go">&rarr;</span>
-        </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/krysha.html">
-          <span class="tile-idx">12</span>
-          <span class="tile-cat">Interactive Simulator &middot; Beta</span>
-          <span class="tile-title">KRYSHA</span>
-          <span class="tile-desc">A playable ransomware-ecosystem disruption simulator. Spend action points on real pressure levers &mdash; financial, infrastructure, legal, underground, protection-layer &mdash; and the ecosystem adapts the way the framework says it does. &ldquo;The protection is the real target.&rdquo;</span>
-          <span class="tile-tags"><span>Adaptation Engine</span><span>WAIS</span><span>7 Scenarios</span><span>Analyst Layer</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
 
