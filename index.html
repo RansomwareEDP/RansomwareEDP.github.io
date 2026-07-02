@@ -729,13 +729,6 @@
       box-shadow: 0 0 10px var(--neon-soft);
       vertical-align: middle;
     }
-    .spotlight {
-      margin-left: auto; display: flex; align-items: baseline; gap: 0.6rem;
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .spotlight .sp-label { color: var(--cream-faint); }
-    .spotlight .sp-link { color: var(--amber); text-decoration: none; border-bottom: 1px solid var(--amber); padding-bottom: 1px; }
-    .spotlight .sp-link:hover { text-shadow: 0 0 10px var(--amber-soft); }
     .mission-strip {
       padding: 4.5rem 0 4rem;
       border-top: 1px solid var(--rule-strong);
@@ -748,7 +741,6 @@
     }
     @media (max-width: 860px) {
       .bento-feat .tile-feat, .bento-small .tile { grid-column: 1 / -1; min-height: 0; }
-      .spotlight { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       .tile-feat::after { animation: none; display: none; }
@@ -976,20 +968,6 @@
       <div class="sec-head">
         <span class="sec-num">01</span>
         <span class="sec-title">Instruments &middot; Tools and Analysis</span>
-        <span class="spotlight" id="spotlight" hidden>
-          <span class="sp-label">Tonight&rsquo;s observation</span>
-          <a class="sp-link" id="spotlight-link" href="#"></a>
-        </span>
-      </div>
-
-      <div class="bento bento-feat">
-
-        <a class="tile tile-feat t-amber feat-map" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html">
-          <span class="tile-idx">01</span>
-          <span class="tile-cat">Primary Instrument &middot; v2.6 &middot; July 2026</span>
-          <span class="tile-title">Ransomware Ecosystem Map</span>
-          <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection, reconstitution pathways. June delta loaded across 10 nodes.</span>
-          <span class="tile-tags"><span>16 Nodes</span><span>June Delta</span><span>Case Studies</span><span>Teaching Mode</span></span>
           <span class="tile-go">&rarr;</span>
           <svg class="feat-art art-map" viewBox="0 0 200 200" aria-hidden="true">
             <g fill="none" stroke="currentColor" stroke-width="1">
@@ -1035,7 +1013,7 @@
       </div>
 
       <div class="tile-group">
-        <div class="group-label" style="--g:#ff4757">The Actors &amp; Their Infrastructure</div>
+        <div class="group-label" style="--g:#ff4757">The Groups, Exchanges, and Their Infrastructure</div>
         <div class="bento bento-small">
         <a class="tile" style="--t-accent:#ff4757" href="https://ransomwareedp.github.io/Mapping/groups">
           <span class="tile-idx">04</span>
@@ -1262,26 +1240,6 @@
         })
         .catch(() => {});
 
-      // Tonight's observation: deterministic daily rotation
-      const SPOTS = [
-        ["Ransomware Ecosystem Map", "https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html"],
-        ["KRYSHA", "https://ransomwareedp.github.io/Mapping/krysha.html"],
-        ["Most Wanted", "https://ransomwareedp.github.io/Mapping/most-wanted.html"],
-        ["Live Intelligence Feed", "https://ransomwareedp.github.io/Mapping/ransomware-live-intel.html"],
-        ["Ransomware Variant Profiles", "https://ransomwareedp.github.io/Mapping/groups"],
-        ["KPI Tracker", "https://ransomwareedp.github.io/Mapping/kpi/"],
-        ["Exchange Profiles", "https://ransomwareedp.github.io/Mapping/exchanges"],
-        ["Bulletproof Hosting Profiles", "https://ransomwareedp.github.io/Mapping/bphs"],
-        ["EDP Modules", "https://ransomwareedp.github.io/Mapping/ransomware-edp-modules-v1.0.html"],
-        ["Role Lenses", "https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html"],
-        ["Lineage Explorer", "https://ransomwareedp.github.io/Mapping/tools/ransomware-lineage-explorer.html"],
-        ["Toolkit Profiles", "https://ransomwareedp.github.io/Mapping/tools/ransomware-toolkit-profiles-v2.html"],
-      ];
-      const day = Math.floor(Date.now() / 86400000);
-      const pick = SPOTS[day % SPOTS.length];
-      const sp = document.getElementById("spotlight");
-      const link = document.getElementById("spotlight-link");
-      if (sp && link) { link.textContent = pick[0]; link.href = pick[1]; sp.hidden = false; }
     })();
   </script>
 </body>
