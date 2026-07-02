@@ -269,7 +269,7 @@
     /* ── HERO ─────────────────────────────────────────── */
     .hero {
       position: relative;
-      padding: 6rem 0 4.5rem;
+      padding: 2.6rem 0 2.2rem;
       border-bottom: 1px solid var(--rule-strong);
     }
 
@@ -788,6 +788,66 @@
       .tile-feat::after { animation: none; display: none; }
       .tile-live .l-dot { animation: none; }
     }
+  
+    /* ── ROUND 2: featured layout, art, live wire ───────── */
+    .bento-feat { margin-bottom: 1rem; }
+    .bento-feat .feat-map { grid-column: span 4; min-height: 300px; }
+    .bento-feat .feat-krysha { grid-column: span 2; min-height: 300px; }
+    .bento-feat .feat-wanted { grid-column: 1 / -1; min-height: 210px; padding-right: 220px; }
+    .feat-wanted .tile-title { font-size: 2.3rem; }
+    .feat-wanted .tile-title em { color: var(--neon); font-style: italic; text-shadow: 0 0 18px var(--neon-soft); }
+    .feat-art {
+      position: absolute; right: 1.2rem; bottom: 0.8rem;
+      width: 180px; height: 180px; opacity: 0.16;
+      pointer-events: none; transition: opacity 0.25s, transform 0.4s;
+    }
+    .art-map { color: var(--amber); }
+    .art-krysha { color: #29d3e0; width: 150px; height: 150px; }
+    .art-crosshair { color: var(--neon); top: 50%; transform: translateY(-50%); bottom: auto; right: 2rem; }
+    .tile-feat:hover .feat-art { opacity: 0.38; }
+    .feat-wanted:hover .art-crosshair { transform: translateY(-50%) rotate(45deg); }
+    .wanted-stamp {
+      position: absolute; top: 1.6rem; right: 4.5rem;
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--neon); border: 2px solid var(--neon); border-radius: 3px;
+      padding: 0.35rem 0.7rem 0.35rem 1rem; transform: rotate(6deg);
+      box-shadow: 0 0 14px rgba(255,71,87,0.25), inset 0 0 10px rgba(255,71,87,0.12);
+      opacity: 0.85;
+    }
+    .livewire {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.6rem 0 0.4rem; padding: 0.55rem 1rem;
+      border: 1px solid var(--rule); border-radius: 8px;
+      background: var(--bg-2); overflow: hidden;
+    }
+    .lw-tag {
+      flex: none; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--mono); font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--neon);
+    }
+    .lw-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); box-shadow: var(--neon-glow); animation: pulse 1.6s ease-in-out infinite; }
+    .lw-viewport { overflow: hidden; flex: 1; }
+    .lw-track { display: inline-flex; gap: 3rem; white-space: nowrap; animation: lwscroll 60s linear infinite; }
+    .lw-track a {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--cream-dim);
+      text-decoration: none;
+    }
+    .lw-track a:hover { color: var(--amber); }
+    .lw-track a b { color: var(--amber); font-weight: 600; margin-right: 0.5rem; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 0.1em; }
+    @keyframes lwscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .livewire:hover .lw-track { animation-play-state: paused; }
+    @media (max-width: 860px) {
+      .bento-feat .feat-map, .bento-feat .feat-krysha, .bento-feat .feat-wanted { grid-column: 1 / -1; min-height: 0; padding-right: 1.5rem; }
+      .feat-wanted .tile-title { font-size: 1.7rem; }
+      .feat-art { display: none; }
+      .wanted-stamp { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lw-track { animation: none; }
+      .lw-dot { animation: none; }
+      .feat-wanted:hover .art-crosshair { transform: translateY(-50%); }
+    }
   </style>
 </head>
 <body>
@@ -843,23 +903,9 @@
       </div>
     </div>
 
-    <div class="figures">
-      <div>
-        <div class="num">16</div>
-        <div class="lbl">Ecosystem Nodes Mapped</div>
-      </div>
-      <div>
-        <div class="num">9</div>
-        <div class="lbl">Disruption KPIs Tracked</div>
-      </div>
-      <div>
-        <div class="num">Q1 &rsquo;24</div>
-        <div class="lbl">Longitudinal Data From</div>
-      </div>
-      <div>
-        <div class="num">Open.</div>
-        <div class="lbl">Research Classification</div>
-      </div>
+    <div class="livewire" id="livewire" hidden>
+      <span class="lw-tag"><span class="lw-dot"></span>Live wire</span>
+      <div class="lw-viewport"><div class="lw-track" id="lw-track"></div></div>
     </div>
 
     <section>
@@ -873,30 +919,55 @@
       </div>
 
       <div class="bento bento-feat">
-        <a class="tile tile-feat t-amber" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html">
+
+        <a class="tile tile-feat t-amber feat-map" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html">
           <span class="tile-idx">01</span>
           <span class="tile-cat">Primary Instrument &middot; v2.6 &middot; July 2026</span>
           <span class="tile-title">Ransomware Ecosystem Map</span>
-          <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection layers, reconstitution pathways. June delta loaded across 10 nodes.</span>
+          <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection, reconstitution pathways. June delta loaded across 10 nodes.</span>
           <span class="tile-tags"><span>16 Nodes</span><span>June Delta</span><span>Case Studies</span><span>Teaching Mode</span></span>
           <span class="tile-go">&rarr;</span>
+          <svg class="feat-art art-map" viewBox="0 0 200 200" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="60" cy="50" r="4"/><circle cx="150" cy="40" r="5"/><circle cx="100" cy="105" r="6"/>
+              <circle cx="40" cy="140" r="4"/><circle cx="165" cy="130" r="4"/><circle cx="120" cy="175" r="4"/>
+              <path d="M60 50 L100 105 L150 40 M100 105 L40 140 M100 105 L165 130 L120 175 M40 140 L120 175"/>
+            </g>
+          </svg>
         </a>
-        <a class="tile tile-feat t-cyan" href="https://ransomwareedp.github.io/Mapping/krysha.html">
+
+        <a class="tile tile-feat t-cyan feat-krysha" href="https://ransomwareedp.github.io/Mapping/krysha.html">
           <span class="tile-idx">02</span>
           <span class="tile-cat">Interactive Simulator &middot; Beta</span>
           <span class="tile-title">KRYSHA</span>
-          <span class="tile-desc">A playable disruption simulator. Spend action points on real pressure levers and watch the ecosystem adapt the way the framework says it does. The protection is the real target.</span>
+          <span class="tile-desc">A playable disruption simulator. Spend action points on real pressure levers; the ecosystem adapts the way the framework says it does.</span>
           <span class="tile-tags"><span>Adaptation Engine</span><span>WAIS</span><span>7 Scenarios</span></span>
           <span class="tile-go">&rarr;</span>
+          <svg class="feat-art art-krysha" viewBox="0 0 200 200" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M30 110 L100 45 L170 110"/>
+              <path d="M48 110 L100 62 L152 110"/>
+              <path d="M100 45 L100 30 M92 30 L108 30"/>
+            </g>
+          </svg>
         </a>
-        <a class="tile tile-feat t-red" href="https://ransomwareedp.github.io/Mapping/most-wanted.html">
+
+        <a class="tile tile-feat t-red feat-wanted" href="https://ransomwareedp.github.io/Mapping/most-wanted.html">
           <span class="tile-idx">03</span>
-          <span class="tile-cat">Actor Dossier</span>
-          <span class="tile-title">Ransomware Most Wanted</span>
-          <span class="tile-desc">Wanted, indicted, and sanctioned principals across the ecosystem: FBI posters, OFAC designations, rewards, confidence-labeled attribution. Includes the Evil Corp deep-dive.</span>
-          <span class="tile-tags"><span>FBI</span><span>OFAC</span><span>NCA</span><span>Interpol</span><span>Rewards</span></span>
+          <span class="wanted-stamp">Wanted</span>
+          <span class="tile-cat">Actor Dossier &middot; FBI &middot; OFAC &middot; NCA &middot; Interpol</span>
+          <span class="tile-title">Ransomware <em>Most Wanted</em></span>
+          <span class="tile-desc">Wanted, indicted, and sanctioned principals across the ecosystem: posters, designations, rewards, confidence-labeled attribution. Includes the Evil Corp deep-dive.</span>
+          <span class="tile-tags"><span>Operators</span><span>Sanctions</span><span>Rewards</span><span>Evil Corp Dossier</span></span>
           <span class="tile-go">&rarr;</span>
+          <svg class="feat-art art-crosshair" viewBox="0 0 200 200" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="46"/><circle cx="100" cy="100" r="18"/>
+              <path d="M100 10 V60 M100 140 V190 M10 100 H60 M140 100 H190"/>
+            </g>
+          </svg>
         </a>
+
       </div>
 
       <div class="bento bento-small">
@@ -1080,6 +1151,35 @@
           const hrs = Math.max(0, Math.round((Date.now() - t) / 3600000));
           const label = hrs === 0 ? "LIVE \u00b7 <1h" : "LIVE \u00b7 " + hrs + "h ago";
           document.querySelectorAll("[data-fresh]").forEach(el => { el.textContent = label; });
+        })
+        .catch(() => {});
+
+      // Live wire: latest reporting headlines from the TI feed
+      fetch("https://ransomwareedp.github.io/Mapping/groups/data/ti-feed.json")
+        .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+        .then(items => {
+          if (!Array.isArray(items) || items.length === 0) return;
+          const seen = new Set();
+          const picks = [];
+          items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+          for (const it of items) {
+            if (!it.url || seen.has(it.url)) continue;
+            seen.add(it.url); picks.push(it);
+            if (picks.length >= 12) break;
+          }
+          if (!picks.length) return;
+          const track = document.getElementById("lw-track");
+          const render = () => picks.map(it => {
+            const a = document.createElement("a");
+            a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+            const b = document.createElement("b");
+            b.textContent = it.group || "intel";
+            a.appendChild(b);
+            a.appendChild(document.createTextNode(it.title || ""));
+            track.appendChild(a);
+          });
+          render(); render(); // doubled for seamless loop
+          document.getElementById("livewire").hidden = false;
         })
         .catch(() => {});
 
