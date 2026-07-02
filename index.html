@@ -182,6 +182,81 @@
       text-shadow: 0 0 10px var(--neon-soft);
     }
 
+    /* ── UPDATED BADGE + CHANGELOG ───────────────────── */
+    .updated-badge {
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--neon);
+      background: transparent;
+      border: 1px solid var(--neon);
+      border-radius: 3px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+      transition: text-shadow 0.15s, box-shadow 0.15s;
+    }
+    .updated-badge:hover {
+      text-shadow: 0 0 10px var(--neon-soft);
+      box-shadow: 0 0 12px var(--neon-soft);
+    }
+    .updated-badge .u-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--neon);
+      box-shadow: var(--neon-glow);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    .updates-panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 2.5rem;
+      margin-top: 0.6rem;
+      width: min(360px, calc(100vw - 3rem));
+      background: rgba(21, 18, 14, 0.97);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--rule-strong);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      z-index: 120;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+    }
+    .updates-panel.open { display: block; }
+    .updates-panel h3 {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin: 0 0 0.7rem;
+    }
+    .updates-panel ul { list-style: none; margin: 0; padding: 0; }
+    .updates-panel li {
+      display: flex;
+      gap: 0.8rem;
+      padding: 0.55rem 0;
+      border-top: 1px solid var(--rule-strong);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--cream-dim);
+    }
+    .updates-panel li:first-child { border-top: none; padding-top: 0; }
+    .updates-panel .u-date {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--neon);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
     /* ── FRAME ────────────────────────────────────────── */
     .frame {
       position: relative;
@@ -610,7 +685,7 @@
 
     /* ── MOTION SAFETY ────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      .ticker-track, .open-sign .word, .nav-brand .dot { animation: none; }
+      .ticker-track, .open-sign .word, .nav-brand .dot, .updated-badge .u-dot { animation: none; }
     }
 
     /* ── RESPONSIVE ───────────────────────────────────── */
@@ -660,6 +735,13 @@
       <li><a href="https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html">Roles</a></li>
       <li><a href="https://ransomwareedp.github.io/Mapping/library/">Library</a></li>
     </ul>
+    <button class="updated-badge" id="updated-badge" aria-expanded="false" aria-controls="updates-panel">
+      <span class="u-dot"></span>Updated
+    </button>
+    <div class="updates-panel" id="updates-panel" role="region" aria-label="Site updates">
+      <h3>Latest Updates</h3>
+      <ul id="updates-list"></ul>
+    </div>
   </nav>
 
   <div class="frame">
@@ -853,5 +935,46 @@
 
   </div>
 
+
+  <script>
+    // ── SITE UPDATES ─────────────────────────────────────
+    // Add new entries at the TOP. Keep to one line each.
+    const SITE_UPDATES = [
+      { date: "2026-07-02", text: "Recent Reporting feeds repaired and expanded to 29 free intelligence sources across all 14 variant profiles. Live victim data added for Payload and World Leaks." },
+      { date: "2026-06-20", text: "Most Wanted actor dossier launched. Exchange coverage expanded to 8 profiles; variant library expanded to 14 profiles." },
+      { date: "2026-06", text: "Observatory redesign launched: new homepage, KRYSHA simulator beta, KPI registry v1.4." },
+    ];
+
+    (function () {
+      const badge = document.getElementById("updated-badge");
+      const panel = document.getElementById("updates-panel");
+      const list = document.getElementById("updates-list");
+      SITE_UPDATES.forEach(u => {
+        const li = document.createElement("li");
+        const d = document.createElement("span");
+        d.className = "u-date";
+        d.textContent = u.date;
+        const t = document.createElement("span");
+        t.textContent = u.text;
+        li.appendChild(d);
+        li.appendChild(t);
+        list.appendChild(li);
+      });
+      function setOpen(open) {
+        panel.classList.toggle("open", open);
+        badge.setAttribute("aria-expanded", String(open));
+      }
+      badge.addEventListener("click", e => {
+        e.stopPropagation();
+        setOpen(!panel.classList.contains("open"));
+      });
+      document.addEventListener("click", e => {
+        if (!panel.contains(e.target)) setOpen(false);
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") setOpen(false);
+      });
+    })();
+  </script>
 </body>
 </html>
