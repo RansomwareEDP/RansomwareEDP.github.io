@@ -960,7 +960,7 @@
     </div>
 
     <div class="livewire" id="livewire" hidden>
-      <span class="lw-tag"><span class="lw-dot"></span>Live wire</span>
+      <span class="lw-tag"><span class="lw-dot"></span>Live &middot; latest victims</span>
       <div class="lw-viewport"><div class="lw-track" id="lw-track"></div></div>
     </div>
 
@@ -1211,34 +1211,43 @@
         })
         .catch(() => {});
 
-      // Live wire: latest reporting headlines from the TI feed
-      fetch("https://ransomwareedp.github.io/Mapping/groups/data/ti-feed.json")
-        .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-        .then(items => {
-          if (!Array.isArray(items) || items.length === 0) return;
-          const seen = new Set();
-          const picks = [];
-          items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-          for (const it of items) {
-            if (!it.url || seen.has(it.url)) continue;
-            seen.add(it.url); picks.push(it);
-            if (picks.length >= 12) break;
-          }
-          if (!picks.length) return;
+      // Live wire: newest victim posts across active groups (ransomware.live data)
+      (function () {
+        const BASE = "https://ransomwareedp.github.io/Mapping/groups/data/";
+        const GROUPS = ["qilin","akira","lynx","dragonforce","lockbit","clop","royal","thegentlemen"];
+        const LABEL = {
+          qilin:"Qilin", akira:"Akira", lynx:"Lynx/INC", dragonforce:"DragonForce",
+          lockbit:"LockBit", clop:"Cl0p", royal:"Royal/BlackSuit", thegentlemen:"The Gentlemen"
+        };
+        Promise.all(GROUPS.map(g =>
+          fetch(BASE + g + ".json")
+            .then(r => r.ok ? r.json() : [])
+            .then(list => (Array.isArray(list) ? list : []).map(v => ({ g, v })))
+            .catch(() => [])
+        )).then(sets => {
+          const all = [].concat.apply([], sets)
+            .filter(x => x.v && x.v.victim && x.v.attackdate)
+            .sort((a, b) => String(b.v.attackdate).localeCompare(String(a.v.attackdate)))
+            .slice(0, 20);
+          if (all.length < 4) return;
           const track = document.getElementById("lw-track");
-          const render = () => picks.map(it => {
+          const build = () => all.forEach(x => {
             const a = document.createElement("a");
-            a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+            a.href = "https://ransomwareedp.github.io/Mapping/groups/" + x.g + ".html";
             const b = document.createElement("b");
-            b.textContent = it.group || "intel";
+            b.textContent = LABEL[x.g] || x.g;
             a.appendChild(b);
-            a.appendChild(document.createTextNode(it.title || ""));
+            const c = x.v.country ? " (" + x.v.country + ")" : "";
+            a.appendChild(document.createTextNode(x.v.victim + c));
             track.appendChild(a);
           });
-          render(); render(); // doubled for seamless loop
+          build(); build(); // doubled for a seamless loop
+          // Constant speed regardless of item count: ~55px/sec across one loop width
+          const loopWidth = track.scrollWidth / 2;
+          if (loopWidth > 0) track.style.animationDuration = Math.max(24, Math.round(loopWidth / 55)) + "s";
           document.getElementById("livewire").hidden = false;
-        })
-        .catch(() => {});
+        }).catch(() => {});
+      })();
 
     })();
   </script>
