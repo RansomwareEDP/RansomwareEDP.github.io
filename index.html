@@ -39,65 +39,6 @@
       overflow-x: hidden;
     }
 
-    /* starfield, because it is an observatory */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        radial-gradient(1.5px 1.5px at 8% 12%, rgba(240,231,216,0.8) 50%, transparent 51%),
-        radial-gradient(1px 1px at 23% 40%, rgba(240,231,216,0.55) 50%, transparent 51%),
-        radial-gradient(2px 2px at 37% 8%, rgba(255,180,84,0.7) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 52% 28%, rgba(240,231,216,0.65) 50%, transparent 51%),
-        radial-gradient(1px 1px at 64% 15%, rgba(240,231,216,0.5) 50%, transparent 51%),
-        radial-gradient(2px 2px at 78% 35%, rgba(240,231,216,0.7) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 88% 10%, rgba(255,71,87,0.65) 50%, transparent 51%),
-        radial-gradient(1px 1px at 94% 48%, rgba(240,231,216,0.5) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 15% 75%, rgba(240,231,216,0.45) 50%, transparent 51%),
-        radial-gradient(1px 1px at 45% 62%, rgba(41,211,224,0.5) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 70% 80%, rgba(240,231,216,0.45) 50%, transparent 51%),
-        radial-gradient(1px 1px at 30% 92%, rgba(255,106,194,0.45) 50%, transparent 51%),
-        radial-gradient(1px 1px at 5% 55%, rgba(240,231,216,0.4) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 60% 45%, rgba(255,180,84,0.4) 50%, transparent 51%),
-        radial-gradient(1px 1px at 97% 78%, rgba(240,231,216,0.45) 50%, transparent 51%),
-        radial-gradient(1px 1px at 42% 18%, rgba(176,124,255,0.45) 50%, transparent 51%);
-      background-size: 100% 100%;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        radial-gradient(2px 2px at 18% 22%, rgba(240,231,216,0.85) 50%, transparent 51%),
-        radial-gradient(2px 2px at 58% 9%, rgba(255,180,84,0.75) 50%, transparent 51%),
-        radial-gradient(2px 2px at 83% 58%, rgba(240,231,216,0.7) 50%, transparent 51%),
-        radial-gradient(2px 2px at 40% 82%, rgba(255,71,87,0.65) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 10% 35%, rgba(41,211,224,0.6) 50%, transparent 51%);
-      background-size: 100% 100%;
-      animation: twinkle 5s ease-in-out infinite;
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    /* warm glow pooling at the top, like a streetlight */
-    .glow-pool {
-      position: fixed;
-      top: -30vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120vw;
-      height: 70vh;
-      background: radial-gradient(ellipse at center, rgba(255,71,87,0.07) 0%, rgba(255,180,84,0.04) 40%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
     ::selection { background: var(--neon); color: var(--bg); }
 
     /* ── TICKER ───────────────────────────────────────── */
@@ -710,7 +651,6 @@
 
     /* ── MOTION SAFETY ────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      body::after { animation: none; }
       .ticker-track, .open-sign .word, .nav-brand .dot, .updated-badge .u-dot { animation: none; }
     }
 
@@ -922,11 +862,64 @@
     .ticker-track i:nth-of-type(5n+4) { color: #4ec87a; text-shadow: 0 0 8px rgba(78,200,122,0.5); }
     .ticker-track i:nth-of-type(5n+5) { color: #ff6ac2; text-shadow: 0 0 8px rgba(255,106,194,0.5); }
     .sec-num { color: var(--amber); text-shadow: 0 0 10px var(--amber-soft); }
+  
+    /* ── GHOST CONSTELLATION: the Conti diaspora, from the Lineage Explorer ── */
+    .constellation {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.11;
+      color: var(--cream);
+    }
+    .constellation line { stroke: currentColor; stroke-width: 1; }
+    .constellation circle { fill: currentColor; }
+    .constellation .c-anchor { fill: var(--neon); }
+    .constellation text {
+      fill: currentColor;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .constellation .c-anchor-label { fill: var(--neon); font-size: 13px; }
+    @media (max-width: 860px) { .constellation { display: none; } }
   </style>
 </head>
 <body>
 
   <div class="glow-pool"></div>
+  <svg class="constellation" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <line x1="140" y1="220" x2="340" y2="260"/>
+    <line x1="260" y1="120" x2="340" y2="260"/>
+    <line x1="260" y1="120" x2="560" y2="420"/>
+    <line x1="340" y1="260" x2="560" y2="420"/>
+    <line x1="560" y1="420" x2="700" y2="180"/>
+    <line x1="560" y1="420" x2="820" y2="260"/>
+    <line x1="560" y1="420" x2="930" y2="340"/>
+    <line x1="560" y1="420" x2="860" y2="470"/>
+    <line x1="560" y1="420" x2="620" y2="640"/>
+    <line x1="560" y1="420" x2="930" y2="600"/>
+    <line x1="560" y1="420" x2="760" y2="680"/>
+    <line x1="620" y1="640" x2="460" y2="720"/>
+    <line x1="620" y1="640" x2="760" y2="780"/>
+    <circle cx="140" cy="220" r="3"/><text x="152" y="216">Hermes</text>
+    <circle cx="260" cy="120" r="3.5"/><text x="272" y="116">Wizard Spider</text>
+    <circle cx="340" cy="260" r="3.5"/><text x="352" y="256">Ryuk</text>
+    <circle class="c-anchor" cx="560" cy="420" r="6"/><text class="c-anchor-label" x="576" y="416">Conti</text>
+    <circle cx="700" cy="180" r="3"/><text x="712" y="176">Diavol</text>
+    <circle cx="820" cy="260" r="3"/><text x="832" y="256">Karakurt</text>
+    <circle cx="930" cy="340" r="3"/><text x="942" y="336">Silent Ransom</text>
+    <circle cx="860" cy="470" r="3.5"/><text x="872" y="466">Black Basta</text>
+    <circle cx="620" cy="640" r="3.5"/><text x="600" y="620">Royal</text>
+    <circle cx="460" cy="720" r="3"/><text x="408" y="716">Zeon</text>
+    <circle cx="760" cy="780" r="3"/><text x="772" y="776">BlackSuit</text>
+    <circle cx="930" cy="600" r="3.5"/><text x="942" y="596">Akira</text>
+    <circle cx="760" cy="680" r="3"/><text x="772" y="700">Monti</text>
+  </svg>
+
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
