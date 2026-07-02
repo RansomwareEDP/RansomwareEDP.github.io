@@ -709,6 +709,85 @@
       .bento { grid-template-columns: 1fr; }
       .tile, .tile-hero, .span3 { grid-column: span 1; }
     }
+  
+    /* ── BENTO REDESIGN ─────────────────────────────── */
+    .bento-feat .tile-feat {
+      grid-column: span 2;
+      min-height: 300px;
+      padding: 2rem;
+      background: linear-gradient(150deg, var(--bg-3), var(--bg-2));
+    }
+    .bento-small .tile { grid-column: span 2; min-height: 190px; }
+    .tile-feat::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--t-accent, var(--neon)), transparent);
+      opacity: 0.9;
+    }
+    .tile-feat::after {
+      content: '';
+      position: absolute; left: 0; right: 0; height: 46px; top: -60px;
+      background: linear-gradient(180deg, transparent, var(--t-scan, rgba(255,180,84,0.05)), transparent);
+      animation: scan 7s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes scan { from { top: -60px; } to { top: 110%; } }
+    .tile-feat .tile-title { font-size: 1.7rem; }
+    .t-amber   { --t-accent: var(--amber); --t-scan: rgba(255,180,84,0.05); border-color: rgba(255,180,84,0.35); }
+    .t-cyan    { --t-accent: #29d3e0;      --t-scan: rgba(41,211,224,0.05); border-color: rgba(41,211,224,0.3); }
+    .t-red     { --t-accent: var(--neon);  --t-scan: rgba(255,71,87,0.05);  border-color: rgba(255,71,87,0.4); }
+    .t-amber:hover, .t-amber-s:hover { border-color: var(--amber); box-shadow: 0 0 24px rgba(255,180,84,0.16); }
+    .t-amber:hover .tile-title, .t-amber-s:hover .tile-title { color: var(--amber); text-shadow: 0 0 14px var(--amber-soft); }
+    .t-amber:hover .tile-go, .t-amber-s:hover .tile-go { color: var(--amber); }
+    .t-cyan:hover { border-color: #29d3e0; box-shadow: 0 0 24px rgba(41,211,224,0.16); }
+    .t-cyan:hover .tile-title { color: #29d3e0; text-shadow: 0 0 14px rgba(41,211,224,0.5); }
+    .t-cyan:hover .tile-go { color: #29d3e0; }
+    .t-live:hover { border-color: #4ec87a; box-shadow: 0 0 24px rgba(78,200,122,0.14); }
+    .t-live:hover .tile-title { color: #7de0a3; text-shadow: 0 0 14px rgba(78,200,122,0.45); }
+    .tile-live {
+      position: absolute; top: 1.1rem; right: 2.6rem;
+      display: flex; align-items: center; gap: 0.35rem;
+      font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.12em;
+      color: #7de0a3; text-transform: uppercase;
+    }
+    .tile-live .l-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ec87a; box-shadow: 0 0 8px rgba(78,200,122,0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .tile-chip {
+      display: inline-block; margin-left: 0.5rem; padding: 1px 7px;
+      font-family: var(--mono); font-size: 0.52rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--bg); background: var(--neon); border-radius: 3px;
+      box-shadow: 0 0 10px var(--neon-soft);
+      vertical-align: middle;
+    }
+    .spotlight {
+      margin-left: auto; display: flex; align-items: baseline; gap: 0.6rem;
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .spotlight .sp-label { color: var(--cream-faint); }
+    .spotlight .sp-link { color: var(--amber); text-decoration: none; border-bottom: 1px solid var(--amber); padding-bottom: 1px; }
+    .spotlight .sp-link:hover { text-shadow: 0 0 10px var(--amber-soft); }
+    .mission-strip {
+      padding: 4.5rem 0 4rem;
+      border-top: 1px solid var(--rule-strong);
+      text-align: center;
+    }
+    .mission-strip .mission-pull { font-size: clamp(1.6rem, 3.4vw, 2.6rem); margin: 0 auto 1rem; }
+    .mission-strip .mission-sub {
+      max-width: 640px; margin: 0 auto;
+      font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: var(--cream-dim);
+    }
+    @media (max-width: 860px) {
+      .bento-feat .tile-feat, .bento-small .tile { grid-column: 1 / -1; min-height: 0; }
+      .spotlight { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tile-feat::after { animation: none; display: none; }
+      .tile-live .l-dot { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -786,150 +865,132 @@
     <section>
       <div class="sec-head">
         <span class="sec-num">01</span>
-        <span class="sec-title">What the Observatory Does</span>
-      </div>
-      <div class="mission">
-        <div class="mission-pull">
-          Built to identify <em>where the ecosystem breaks</em>, and how to push it there.
-        </div>
-        <div class="mission-body">
-          <p>
-            The Observatory maps the structural dependencies that sustain Russia/CIS-linked
-            ransomware operations: financial flows, infrastructure layers, jurisdictional
-            protection, and the criminal service economy that underpins them.
-          </p>
-          <p>
-            The goal is not just to understand the ecosystem. <strong>It is to identify leverage
-            points where targeted pressure produces measurable degradation.</strong> Groups rebrand.
-            Dependencies don't.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding-top: 0;">
-      <div class="sec-head">
-        <span class="sec-num">02</span>
         <span class="sec-title">Instruments &middot; Tools and Analysis</span>
+        <span class="spotlight" id="spotlight" hidden>
+          <span class="sp-label">Tonight&rsquo;s observation</span>
+          <a class="sp-link" id="spotlight-link" href="#"></a>
+        </span>
       </div>
 
-      <div class="bento">
-
-        <a class="tile tile-hero tile-cohero" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html">
+      <div class="bento bento-feat">
+        <a class="tile tile-feat t-amber" href="https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html">
           <span class="tile-idx">01</span>
-          <span class="tile-cat">Primary Tool &middot; v2.6 &nbsp;</span>
+          <span class="tile-cat">Primary Instrument &middot; v2.6 &middot; July 2026</span>
           <span class="tile-title">Ransomware Ecosystem Map</span>
-          <span class="tile-desc">Interactive dependency graph of the full ransomware ecosystem. Visualizes financial flows, infrastructure dependencies, Russian government protection layers, and reconstitution pathways. Includes case studies, phase overlays, jurisdiction analysis, and teaching mode.</span>
-          <span class="tile-tags"><span>Financial Flows</span><span>RU Gov Protection</span><span>Case Studies</span><span>Teaching Mode</span><span>Jurisdiction</span></span>
+          <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection layers, reconstitution pathways. June delta loaded across 10 nodes.</span>
+          <span class="tile-tags"><span>16 Nodes</span><span>June Delta</span><span>Case Studies</span><span>Teaching Mode</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile tile-hero tile-cohero" href="https://ransomwareedp.github.io/Mapping/krysha.html">
+        <a class="tile tile-feat t-cyan" href="https://ransomwareedp.github.io/Mapping/krysha.html">
           <span class="tile-idx">02</span>
           <span class="tile-cat">Interactive Simulator &middot; Beta</span>
           <span class="tile-title">KRYSHA</span>
-          <span class="tile-desc">A playable ransomware-ecosystem disruption simulator. Spend action points on real pressure levers &mdash; financial, infrastructure, legal, underground, protection-layer &mdash; and the ecosystem adapts the way the framework says it does. &ldquo;The protection is the real target.&rdquo;</span>
-          <span class="tile-tags"><span>Adaptation Engine</span><span>WAIS</span><span>7 Scenarios</span><span>Analyst Layer</span></span>
+          <span class="tile-desc">A playable disruption simulator. Spend action points on real pressure levers and watch the ecosystem adapt the way the framework says it does. The protection is the real target.</span>
+          <span class="tile-tags"><span>Adaptation Engine</span><span>WAIS</span><span>7 Scenarios</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/most-wanted.html">
+        <a class="tile tile-feat t-red" href="https://ransomwareedp.github.io/Mapping/most-wanted.html">
           <span class="tile-idx">03</span>
           <span class="tile-cat">Actor Dossier</span>
           <span class="tile-title">Ransomware Most Wanted</span>
-          <span class="tile-desc">Indicted and sanctioned operators across the Russia/CIS ecosystem: FBI wanted posters, OFAC designations, rewards, and current status. Includes the Evil Corp cluster deep-dive dossier.</span>
-          <span class="tile-tags"><span>Operators</span><span>Sanctions</span><span>Rewards</span></span>
+          <span class="tile-desc">Wanted, indicted, and sanctioned principals across the ecosystem: FBI posters, OFAC designations, rewards, confidence-labeled attribution. Includes the Evil Corp deep-dive.</span>
+          <span class="tile-tags"><span>FBI</span><span>OFAC</span><span>NCA</span><span>Interpol</span><span>Rewards</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
+      </div>
 
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/kpi/">
+      <div class="bento bento-small">
+        <a class="tile t-live" href="https://ransomwareedp.github.io/Mapping/ransomware-live-intel.html">
           <span class="tile-idx">04</span>
-          <span class="tile-cat">Measurement Tool</span>
-          <span class="tile-title">KPI Measurement Tracker</span>
-          <span class="tile-desc">Longitudinal tracking of 9 disruption KPIs. Quarterly data from Q1 2024 onward with trend charts.</span>
-          <span class="tile-tags"><span>Quarterly Trends</span><span>WAIS</span></span>
-          <span class="tile-go">&rarr;</span>
-        </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/ransomware-live-intel.html">
-          <span class="tile-idx">05</span>
-          <span class="tile-cat"><span class="live-dot"></span>Live Feed</span>
+          <span class="tile-cat">Live Feed</span>
           <span class="tile-title">Live Intelligence Feed</span>
-          <span class="tile-desc">Real-time victim posts and active group tracking via ransomware.live. Filterable by group, country, and sector. Refreshes every 5 minutes.</span>
+          <span class="tile-desc">Victim posts and active-group tracking via ransomware.live. Refreshes every 5 minutes.</span>
+          <span class="tile-live"><span class="l-dot"></span><span class="l-txt" data-fresh>LIVE</span></span>
           <span class="tile-tags"><span>Real-Time</span><span>Victim Tracking</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/groups">
-          <span class="tile-idx">06</span>
+        <a class="tile t-red-s" href="https://ransomwareedp.github.io/Mapping/groups">
+          <span class="tile-idx">05</span>
           <span class="tile-cat">Threat Actor Library</span>
-          <span class="tile-title">Ransomware Variant Profiles</span>
-          <span class="tile-desc">Histories and structural profiles of individual variants: lineage, operational patterns, affiliate relationships, disruption timeline.</span>
-          <span class="tile-tags"><span>14 Profiles</span></span>
+          <span class="tile-title">Variant Profiles</span>
+          <span class="tile-desc">14 structural profiles: lineage, operations, affiliates, live victim data, disruption timelines.</span>
+          <span class="tile-live"><span class="l-dot"></span><span class="l-txt" data-fresh>LIVE</span></span>
+          <span class="tile-tags"><span>14 Profiles</span><span>Live Data</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/exchanges">
+        <a class="tile t-amber-s" href="https://ransomwareedp.github.io/Mapping/kpi/">
+          <span class="tile-idx">06</span>
+          <span class="tile-cat">Measurement</span>
+          <span class="tile-title">KPI Tracker</span>
+          <span class="tile-desc">9 disruption KPIs tracked quarterly since Q1 2024, rendered from the canonical registry.</span>
+          <span class="tile-tags"><span>9 KPIs</span><span>Quarterly</span><span>WAIS</span></span>
+          <span class="tile-go">&rarr;</span>
+        </a>
+        <a class="tile t-red-s" href="https://ransomwareedp.github.io/Mapping/exchanges">
           <span class="tile-idx">07</span>
           <span class="tile-cat">Financial Layer</span>
-          <span class="tile-title">Cryptocurrency Exchange Profiles</span>
-          <span class="tile-desc">Exchanges serving Russia/CIS ransomware networks: volumes, illicit exposure, operator attribution, sanctions history.</span>
-          <span class="tile-tags"><span>8 Profiles</span></span>
+          <span class="tile-title">Exchange Profiles</span>
+          <span class="tile-desc">8 exchanges serving Russia/CIS networks: volumes, illicit exposure, sanctions history.</span>
+          <span class="tile-tags"><span>8 Profiles</span><span>Sanctions</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/bphs">
+        <a class="tile t-red-s" href="https://ransomwareedp.github.io/Mapping/bphs">
           <span class="tile-idx">08</span>
           <span class="tile-cat">Infrastructure Layer</span>
-          <span class="tile-title">Bulletproof Hosting Profiles</span>
-          <span class="tile-desc">BPH providers serving the ecosystem: ASN infrastructure, operator attribution, sanctions exposure, disruption history.</span>
-          <span class="tile-tags"><span>5 Profiles</span></span>
+          <span class="tile-title">Bulletproof Hosting</span>
+          <span class="tile-desc">5 BPH providers: ASN infrastructure, operator attribution, disruption history.</span>
+          <span class="tile-tags"><span>5 Providers</span><span>ASN Maps</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile span3" href="https://ransomwareedp.github.io/Mapping/ransomware-edp-modules-v1.0.html">
+        <a class="tile t-amber-s" href="https://ransomwareedp.github.io/Mapping/ransomware-edp-modules-v1.0.html">
           <span class="tile-idx">09</span>
           <span class="tile-cat">Intelligence Browser</span>
-          <span class="tile-title">EDP Module Intelligence</span>
-          <span class="tile-desc">Node-by-node intelligence browser for all 15 Ecosystem Dependency Playbook modules. Deep-dive analysis of individual ecosystem components, disruption vectors, and interdiction points.</span>
-          <span class="tile-tags"><span>15 Modules</span><span>Node Analysis</span><span>Interdiction</span></span>
+          <span class="tile-title">EDP Modules</span>
+          <span class="tile-desc">Node-by-node browser for all 15 Ecosystem Dependency Playbook modules.</span>
+          <span class="tile-tags"><span>15 Modules</span><span>Interdiction</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile span3" href="https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html">
+        <a class="tile t-amber-s" href="https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html">
           <span class="tile-idx">10</span>
           <span class="tile-cat">Analysis Tool &middot; v0.1</span>
-          <span class="tile-title">Role-Based Analysis Lenses</span>
-          <span class="tile-desc">Tailored ecosystem views for specific analyst roles: law enforcement, intelligence community, financial disruption, threat intelligence, and leadership. Each lens surfaces the leverage points most relevant to that mission.</span>
+          <span class="tile-title">Role Lenses</span>
+          <span class="tile-desc">Ecosystem views tuned per mission: LE, IC, financial disruption, TI, leadership.</span>
           <span class="tile-tags"><span>LE</span><span>IC</span><span>FIN</span><span>TI</span><span>EXEC</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-lineage-explorer.html">
+        <a class="tile t-cream-s" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-lineage-explorer.html">
           <span class="tile-idx">11</span>
           <span class="tile-cat">Analysis Tool &middot; v1.0</span>
-          <span class="tile-title">Ransomware Lineage Explorer</span>
-          <span class="tile-desc">Family tree of ransomware groups: rebrand chains, affiliate migrations, and code lineage across the ecosystem.</span>
+          <span class="tile-title">Lineage Explorer</span>
+          <span class="tile-desc">Family tree of the ecosystem: rebrand chains, affiliate migrations, code lineage.</span>
           <span class="tile-tags"><span>Lineage</span><span>Rebrands</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
-
-        <a class="tile" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-toolkit-profiles-v2.html">
+        <a class="tile t-cream-s" href="https://ransomwareedp.github.io/Mapping/tools/ransomware-toolkit-profiles-v2.html">
           <span class="tile-idx">12</span>
           <span class="tile-cat">Reference &middot; v2.0</span>
-          <span class="tile-title">Group Toolkit Profiles</span>
-          <span class="tile-desc">Per-group tooling reference: encryptors, loaders, exfiltration utilities, and infrastructure preferences.</span>
+          <span class="tile-title">Toolkit Profiles</span>
+          <span class="tile-desc">Per-group tooling: encryptors, loaders, exfiltration utilities, infrastructure preferences.</span>
           <span class="tile-tags"><span>TTPs</span><span>Tooling</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
+      </div>
+    </section>
 
+    <section class="mission-strip">
+      <div class="mission-pull">
+        Groups rebrand. <em>Dependencies don&rsquo;t.</em>
+      </div>
+      <div class="mission-sub">
+        The Observatory maps the structural dependencies that keep Russia/CIS ransomware running,
+        and identifies the leverage points where targeted pressure produces measurable degradation.
       </div>
     </section>
 
     <footer>
       <div class="footer-inner">
         <p class="footer-tagline">The <b>biggest little</b> threat intel project in the world.</p>
-        <p class="footer-meta">Ransomware Ecosystem Network Observatory <i>&#10022;</i> Author: Reno <i>&#10022;</i> Updated June 2026 <i>&#10022;</i> Open Research</p>
+        <p class="footer-meta">Ransomware Ecosystem Network Observatory <i>&#10022;</i> Author: Reno <i>&#10022;</i> Updated July 2026 <i>&#10022;</i> Open Research</p>
       </div>
     </footer>
 
@@ -940,12 +1001,13 @@
     // ── SITE UPDATES ─────────────────────────────────────
     // Add new entries at the TOP. Keep to one line each.
     const SITE_UPDATES = [
-      { date: "2026-07-02", text: "Ecosystem Map v2.6 released: 13 June-cycle events across 10 nodes, including the Operation Endgame June phase, the AudiA6 takedown, OFAC action on Iranian exchanges, and confirmed CIS-exclusion enforcement. Use the delta overlay to see what changed." },
-      { date: "2026-07-02", text: "EDP Monthly for June 2026 published: ecosystem activity, dependency pressure indicators, and disruption events. In the Library under Monthly Reports." },
-      { date: "2026-07-02", text: "Navigation overhaul: Most Wanted and the EDP module browser joined the Observatory nav; the Research Hub now links every profile library and analysis tool, including the Arc Diagram." },
-      { date: "2026-07-02", text: "Recent Reporting feeds repaired and expanded to 29 free intelligence sources across all 14 variant profiles. Live victim data added for Payload and World Leaks." },
-      { date: "2026-06-20", text: "Most Wanted actor dossier launched. Exchange coverage expanded to 8 profiles; variant library expanded to 14 profiles." },
-      { date: "2026-06", text: "Observatory redesign launched: new homepage, KRYSHA simulator beta, KPI registry v1.4." },
+      { date: "2026-07-02", text: "Homepage redesign: instruments now lead the page in a featured bento layout with live data signals, Updated chips, and a rotating nightly spotlight. Mission statement distilled to what it always was: groups rebrand, dependencies don\u0027t.", tags: [] },
+      { date: "2026-07-02", text: "Ecosystem Map v2.6 released: 13 June-cycle events across 10 nodes, including the Operation Endgame June phase, the AudiA6 takedown, OFAC action on Iranian exchanges, and confirmed CIS-exclusion enforcement. Use the delta overlay to see what changed.", tags: ["map"] },
+      { date: "2026-07-02", text: "EDP Monthly for June 2026 published: ecosystem activity, dependency pressure indicators, and disruption events. In the Library under Monthly Reports.", tags: ["library"] },
+      { date: "2026-07-02", text: "Navigation overhaul: Most Wanted and the EDP module browser joined the Observatory nav; the Research Hub now links every profile library and analysis tool, including the Arc Diagram.", tags: ["most-wanted","modules"] },
+      { date: "2026-07-02", text: "Recent Reporting feeds repaired and expanded to 29 free intelligence sources across all 14 variant profiles. Live victim data added for Payload and World Leaks.", tags: ["variants","live-intel"] },
+      { date: "2026-06-20", text: "Most Wanted actor dossier launched. Exchange coverage expanded to 8 profiles; variant library expanded to 14 profiles.", tags: ["most-wanted","exchanges","variants"] },
+      { date: "2026-06", text: "Observatory redesign launched: new homepage, KRYSHA simulator beta, KPI registry v1.4.", tags: [] },
     ];
 
     (function () {
@@ -977,6 +1039,70 @@
       document.addEventListener("keydown", e => {
         if (e.key === "Escape") setOpen(false);
       });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      // UPDATED chips: tiles whose tag appears in a SITE_UPDATES entry from the last 14 days
+      const TAG_HREF = {
+        "map": "ransomware-ecosystem", "library": "/library", "most-wanted": "most-wanted",
+        "modules": "edp-modules", "variants": "/groups", "live-intel": "live-intel", "exchanges": "/exchanges"
+      };
+      const now = new Date();
+      const fresh = new Set();
+      SITE_UPDATES.forEach(u => {
+        const d = new Date(u.date.length === 7 ? u.date + "-28" : u.date);
+        if (!isNaN(d) && (now - d) / 86400000 <= 14) (u.tags || []).forEach(t => fresh.add(t));
+      });
+      document.querySelectorAll(".tile").forEach(tile => {
+        const href = tile.getAttribute("href") || "";
+        for (const t of fresh) {
+          if (href.includes(TAG_HREF[t] || "\u0000")) {
+            const title = tile.querySelector(".tile-title");
+            if (title && !title.querySelector(".tile-chip")) {
+              const chip = document.createElement("span");
+              chip.className = "tile-chip";
+              chip.textContent = "Updated";
+              title.appendChild(chip);
+            }
+            break;
+          }
+        }
+      });
+
+      // Freshness: last data refresh from the Mapping repo (tiny same-origin file)
+      fetch("https://ransomwareedp.github.io/Mapping/groups/data/last-updated.json")
+        .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+        .then(j => {
+          const t = new Date(j.updated);
+          if (isNaN(t)) return;
+          const hrs = Math.max(0, Math.round((Date.now() - t) / 3600000));
+          const label = hrs === 0 ? "LIVE \u00b7 <1h" : "LIVE \u00b7 " + hrs + "h ago";
+          document.querySelectorAll("[data-fresh]").forEach(el => { el.textContent = label; });
+        })
+        .catch(() => {});
+
+      // Tonight's observation: deterministic daily rotation
+      const SPOTS = [
+        ["Ransomware Ecosystem Map", "https://ransomwareedp.github.io/Mapping/ransomware-ecosystem-v2.6.html"],
+        ["KRYSHA", "https://ransomwareedp.github.io/Mapping/krysha.html"],
+        ["Most Wanted", "https://ransomwareedp.github.io/Mapping/most-wanted.html"],
+        ["Live Intelligence Feed", "https://ransomwareedp.github.io/Mapping/ransomware-live-intel.html"],
+        ["Variant Profiles", "https://ransomwareedp.github.io/Mapping/groups"],
+        ["KPI Tracker", "https://ransomwareedp.github.io/Mapping/kpi/"],
+        ["Exchange Profiles", "https://ransomwareedp.github.io/Mapping/exchanges"],
+        ["Bulletproof Hosting Profiles", "https://ransomwareedp.github.io/Mapping/bphs"],
+        ["EDP Modules", "https://ransomwareedp.github.io/Mapping/ransomware-edp-modules-v1.0.html"],
+        ["Role Lenses", "https://ransomwareedp.github.io/Mapping/ransomware-role-lenses-v0.1.html"],
+        ["Lineage Explorer", "https://ransomwareedp.github.io/Mapping/tools/ransomware-lineage-explorer.html"],
+        ["Toolkit Profiles", "https://ransomwareedp.github.io/Mapping/tools/ransomware-toolkit-profiles-v2.html"],
+      ];
+      const day = Math.floor(Date.now() / 86400000);
+      const pick = SPOTS[day % SPOTS.length];
+      const sp = document.getElementById("spotlight");
+      const link = document.getElementById("spotlight-link");
+      if (sp && link) { link.textContent = pick[0]; link.href = pick[1]; sp.hidden = false; }
     })();
   </script>
 </body>
