@@ -1,0 +1,6 @@
+# Short root-domain aliases bounce to the research hub
+/map     https://research.therenoproject.org/map     301
+/intel   https://research.therenoproject.org/intel   301
+/wanted  https://research.therenoproject.org/wanted  301
+/krysha  https://research.therenoproject.org/krysha  301
+/research https://research.therenoproject.org/       301
