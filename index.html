@@ -1044,25 +1044,25 @@
           <span class="tile-idx">04</span>
           <span class="tile-cat">Threat Actor Library</span>
           <span class="tile-title">Ransomware Variant Profiles</span>
-          <span class="tile-desc">20 structural profiles: lineage, operations, affiliates, live victim data, disruption timelines.</span>
+          <span class="tile-desc"><span data-stat="groups">23</span> structural profiles: lineage, operations, affiliates, live victim data, disruption timelines.</span>
           <span class="tile-live"><span class="l-dot"></span><span class="l-txt" data-fresh>LIVE</span></span>
-          <span class="tile-tags"><span>20 Profiles</span><span>Live Data</span></span>
+          <span class="tile-tags"><span><span data-stat="groups">23</span> Profiles</span><span>Live Data</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
         <a class="tile" style="--t-accent:#ff8a3d" href="https://research.therenoproject.org/bphs">
           <span class="tile-idx">05</span>
           <span class="tile-cat">Infrastructure Layer</span>
           <span class="tile-title">Bulletproof Hosting</span>
-          <span class="tile-desc">6 BPH providers: ASN infrastructure, operator attribution, disruption history.</span>
-          <span class="tile-tags"><span>6 Providers</span><span>ASN Maps</span></span>
+          <span class="tile-desc"><span data-stat="bphs">6</span> BPH providers: ASN infrastructure, operator attribution, disruption history.</span>
+          <span class="tile-tags"><span><span data-stat="bphs">6</span> Providers</span><span>ASN Maps</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
         <a class="tile" style="--t-accent:#ffb454" href="https://research.therenoproject.org/exchanges">
           <span class="tile-idx">06</span>
           <span class="tile-cat">Financial Layer</span>
           <span class="tile-title">Exchange Profiles</span>
-          <span class="tile-desc">8 exchanges serving Russia/CIS networks: volumes, illicit exposure, sanctions history.</span>
-          <span class="tile-tags"><span>8 Profiles</span><span>Sanctions</span></span>
+          <span class="tile-desc"><span data-stat="exchanges">8</span> exchanges serving Russia/CIS networks: volumes, illicit exposure, sanctions history.</span>
+          <span class="tile-tags"><span><span data-stat="exchanges">8</span> Profiles</span><span>Sanctions</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
         </div>
@@ -1154,6 +1154,7 @@
     // ── SITE UPDATES ─────────────────────────────────────
     // Add new entries at the TOP. Keep to one line each.
     const SITE_UPDATES = [
+      { date: "2026-07-22", text: "Variant library expanded to 23 profiles with origins-era deep dives: Zeus/GameOver Zeus and Dyre. Profile counts across the Observatory now recount themselves automatically on every publish.", tags: ["variants"] },
       { date: "2026-07-07", text: "Variant library expanded to 20 profiles with legacy deep dives: Ryuk, TrickBot, DarkSide, and REvil. LockBit profile gains a Defensive Mapping section: MITRE ATT&CK priority set plus linked CISA advisories.", tags: ["variants"] },
       { date: "2026-07-05", text: "Variant library expanded to 16 profiles with ALPHV/BlackCat and Scattered Spider. BPH coverage expanded to 6 with Aeza Group. End Krysha, the campaign site, is live at endkrysha.com and cross-linked sitewide.", tags: ["variants","bph"] },
       { date: "2026-07-02", text: "Homepage redesign: instruments now lead the page in a featured bento layout with live data signals, Updated chips, and a rotating nightly spotlight. Mission statement distilled to what it always was: groups rebrand, dependencies don\u0027t.", tags: [] },
@@ -1278,5 +1279,21 @@
 
     })();
   </script>
+<script>
+  /* Live profile counts: reads site-stats.json from the research site, which is
+     auto-regenerated on every publish by a GitHub Action in the Mapping repo.
+     The static numbers in the tiles act as the fallback if the fetch fails. */
+  (function () {
+    fetch("https://research.therenoproject.org/data/site-stats.json?t=" + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (s) {
+        document.querySelectorAll("[data-stat]").forEach(function (el) {
+          var v = s[el.getAttribute("data-stat")];
+          if (typeof v === "number") el.textContent = v;
+        });
+      })
+      .catch(function () { /* keep static fallback */ });
+  })();
+</script>
 </body>
 </html>
