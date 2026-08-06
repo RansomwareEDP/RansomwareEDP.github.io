@@ -987,7 +987,7 @@
 
         <a class="tile tile-feat t-amber feat-map" href="https://research.therenoproject.org/map">
           <span class="tile-idx">01</span>
-          <span class="tile-cat">Primary Instrument &middot; v3.0 &middot; July 2026</span>
+          <span class="tile-cat">Primary Instrument &middot; v3.0 &middot; Updated August 2026</span>
           <span class="tile-title">Ransomware Ecosystem Map</span>
           <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection, reconstitution pathways. Now includes the Permission Layer: the Western commercial enablement that keeps the infrastructure reachable, routable, and incorporated.</span>
           <span class="tile-tags"><span>35 Nodes</span><span>Permission Layer</span><span>Case Studies</span><span>Teaching Mode</span></span>
@@ -1154,6 +1154,8 @@
     // ── SITE UPDATES ─────────────────────────────────────
     // Add new entries at the TOP. Keep to one line each.
     const SITE_UPDATES = [
+      { date: "2026-08-05", text: "The map's Teaching Mode has been rebuilt against the last six months of research. The guided walkthrough now runs 22 steps and adds the Permission Layer, the payment chokepoint, and how fast the ecosystem heals after pressure. Several older steps were corrected: the forum layer is no longer described as operating with impunity, and the cash-out story now follows the settlement rail rather than the exchange front-ends that keep churning above it.", tags: ["map"] },
+      { date: "2026-08-05", text: "EDP Monthly for July 2026 is published: the month enforcement shifted from operators to enablers, with 37 designations landing across three jurisdictions in a single day, the first public attribution of the Stern moniker, and the first demonstration of issuer-level asset freezing at nine-figure scale inside 24 hours.", tags: ["library"] },
       { date: "2026-08-01", text: "Ecosystem Map v3.0 is live: 35 nodes and 96 dependencies, adding the Permission Layer (upstream transit carriers, registries and sponsoring LIRs, corporate formation agents), a VPN and anonymity node, the A7A5 settlement rail, and exposure actors. The map now lives at a permanent address, /map, which always serves the current version.", tags: ["map"] },
       { date: "2026-08-01", text: "All 15 EDP modules are now readable on the web, not just as PDFs. Each module page opens with a locator showing where that node sits in the ecosystem and what depends on it, and links straight into the live map. PDFs remain downloadable from every page.", tags: ["library"] },
       { date: "2026-07-22", text: "Variant library expanded to 23 profiles with origins-era deep dives: Zeus/GameOver Zeus and Dyre. Profile counts across the Observatory now recount themselves automatically on every publish.", tags: ["variants"] },
@@ -1204,7 +1206,7 @@
     (function () {
       // UPDATED chips: tiles whose tag appears in a SITE_UPDATES entry from the last 14 days
       const TAG_HREF = {
-        "map": "ransomware-ecosystem", "library": "/library", "most-wanted": "most-wanted",
+        "map": "/map", "library": "/library", "most-wanted": "most-wanted",
         "modules": "edp-modules", "variants": "/groups", "live-intel": "live-intel", "exchanges": "/exchanges"
       };
       const now = new Date();
