@@ -938,7 +938,7 @@
       <li><a href="https://research.therenoproject.org/">Research Hub</a></li>
       <li><a href="https://research.therenoproject.org/most-wanted.html">Most Wanted</a></li>
       <li><a href="https://research.therenoproject.org/kpi/">KPI Tracker</a></li>
-      <li><a href="https://research.therenoproject.org/ransomware-live-intel.html">Live Intel</a></li>
+      <li><a href="https://research.therenoproject.org/observatory">Observatory</a></li>
       <li><a href="https://research.therenoproject.org/groups">Variants</a></li>
       <li><a href="https://research.therenoproject.org/bphs">BPHs</a></li>
       <li><a href="https://research.therenoproject.org/exchanges">Exchanges</a></li>
@@ -987,7 +987,7 @@
 
         <a class="tile tile-feat t-amber feat-map" href="https://research.therenoproject.org/map">
           <span class="tile-idx">01</span>
-          <span class="tile-cat">Primary Instrument &middot; v3.0 &middot; Updated August 2026</span>
+          <span class="tile-cat">Primary Instrument &middot; v3.0 &middot; Updated September 2026</span>
           <span class="tile-title">Ransomware Ecosystem Map</span>
           <span class="tile-desc">The dependency graph of the whole machine: financial flows, infrastructure, RU government protection, reconstitution pathways. Now includes the Permission Layer: the Western commercial enablement that keeps the infrastructure reachable, routable, and incorporated.</span>
           <span class="tile-tags"><span>35 Nodes</span><span>Permission Layer</span><span>Case Studies</span><span>Teaching Mode</span></span>
@@ -1071,13 +1071,13 @@
       <div class="tile-group">
         <div class="group-label" style="--g:#4ec87a">Live Signal &amp; Measurement</div>
         <div class="bento bento-small">
-        <a class="tile" style="--t-accent:#4ec87a" href="https://research.therenoproject.org/ransomware-live-intel.html">
+        <a class="tile" style="--t-accent:#4ec87a" href="https://research.therenoproject.org/observatory">
           <span class="tile-idx">07</span>
-          <span class="tile-cat">Live Feed</span>
-          <span class="tile-title">Live Intelligence Feed</span>
-          <span class="tile-desc">Victim posts and active-group tracking via ransomware.live. Refreshes every 5 minutes.</span>
+          <span class="tile-cat">Data Console</span>
+          <span class="tile-title">The Observatory</span>
+          <span class="tile-desc">30,000 victim claims since 2020 across 335 brands. Volume and cadence, group comparison, a rebrand-handoff heatmap, analyst dossiers, victim search, and a succession lead finder. Plus a live feed of the newest claims.</span>
           <span class="tile-live"><span class="l-dot"></span><span class="l-txt" data-fresh>LIVE</span></span>
-          <span class="tile-tags"><span>Real-Time</span><span>Victim Tracking</span></span>
+          <span class="tile-tags"><span>30k Claims</span><span>335 Brands</span><span>Succession Lab</span></span>
           <span class="tile-go">&rarr;</span>
         </a>
         <a class="tile" style="--t-accent:#b07cff" href="https://research.therenoproject.org/kpi/">
@@ -1143,7 +1143,7 @@
     <footer>
       <div class="footer-inner">
         <p class="footer-tagline">The <b>biggest little</b> threat intel project in the world.</p>
-        <p class="footer-meta">Ransomware Ecosystem Network Observatory <i>&#10022;</i> Author: Reno <i>&#10022;</i> Updated July 2026 <i>&#10022;</i> Open Research <i>&#10022;</i> <a href="/contact.html" style="color:var(--amber);text-decoration:none">Contact &amp; Citation</a> <i>&#10022;</i> <a href="https://endkrysha.com/" style="color:var(--amber);text-decoration:none">End Krysha &#8599;</a></p>
+        <p class="footer-meta">Ransomware Ecosystem Network Observatory <i>&#10022;</i> Author: Reno <i>&#10022;</i> Updated September 2026 <i>&#10022;</i> Open Research <i>&#10022;</i> <a href="/contact.html" style="color:var(--amber);text-decoration:none">Contact &amp; Citation</a> <i>&#10022;</i> <a href="https://endkrysha.com/" style="color:var(--amber);text-decoration:none">End Krysha &#8599;</a></p>
       </div>
     </footer>
 
@@ -1154,6 +1154,9 @@
     // ── SITE UPDATES ─────────────────────────────────────
     // Add new entries at the TOP. Keep to one line each.
     const SITE_UPDATES = [
+      { date: "2026-09-13", text: "EDP Monthly for August 2026 is published: the highest leak-site month on record across a splintering field, a sanctions toolkit that now arrives pre-loaded with chain evidence (the Iran sector determination and wallet-tagged designations), the self-sustaining ChainDrop npm worm, and a CIS-exclusion norm that held while the third-country pipeline delivered both consequences of the month. In the Library under Monthly Reports; the map's delta view now shows August.", tags: ["library","map"] },
+      { date: "2026-09-13", text: "Ecosystem Map rebuilt underneath: the same map now runs as one shell reading separate data packs, with the controls folded into three menus (View, Overlays, Stories) and the graph first on screen. Two new editions open from the same page: an analyst edition with the live measurement register and collector readings per node, and a sources edition showing what open collection feeds each node and where the map is dark.", tags: ["map"] },
+      { date: "2026-08-22", text: "The Observatory console is live at /observatory, replacing the Live Intelligence Feed. It holds 30,000 victim claims since 2020 across 335 brands: posting volume and cadence, side-by-side group comparison, a heatmap that makes rebrand handoffs visible, hand-written analyst dossiers, full victim search, and a live feed of the newest claims. It also adds a Succession Lab, which proposes which brands took over from which and shows where those leads agree and disagree with the curated lineage data. Everything there is a lead, not a finding: leak-site data cannot see people, and an affiliate posting the same victim twice looks exactly like a rebrand.", tags: ["live-intel","variants"] },
       { date: "2026-08-05", text: "The map's Teaching Mode has been rebuilt against the last six months of research. The guided walkthrough now runs 22 steps and adds the Permission Layer, the payment chokepoint, and how fast the ecosystem heals after pressure. Several older steps were corrected: the forum layer is no longer described as operating with impunity, and the cash-out story now follows the settlement rail rather than the exchange front-ends that keep churning above it.", tags: ["map"] },
       { date: "2026-08-05", text: "EDP Monthly for July 2026 is published: the month enforcement shifted from operators to enablers, with 37 designations landing across three jurisdictions in a single day, the first public attribution of the Stern moniker, and the first demonstration of issuer-level asset freezing at nine-figure scale inside 24 hours.", tags: ["library"] },
       { date: "2026-08-01", text: "Ecosystem Map v3.0 is live: 35 nodes and 96 dependencies, adding the Permission Layer (upstream transit carriers, registries and sponsoring LIRs, corporate formation agents), a VPN and anonymity node, the A7A5 settlement rail, and exposure actors. The map now lives at a permanent address, /map, which always serves the current version.", tags: ["map"] },
